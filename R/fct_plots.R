@@ -7,7 +7,9 @@
 #'
 #' @import ggplot2
 #' @importFrom rlang .data
-#' @importFrom dplyr tbl filter select group_by slice_max collect
+#' @importFrom dplyr filter select mutate across
+#' @importFrom tidyr pivot_longer
+#' @importFrom forcats::fct_relevel
 #' @importFrom magick image_read
 #' @importFrom cowplot ggdraw draw_plot draw_image
 #' @importFrom ggrepel geom_label_repel
@@ -19,32 +21,47 @@ output_athleticism_plot <- function(input_df, input_player) {
 
   input_df <- input_df |>
     dplyr::filter(plot_name %in% input_player) |>
-    dplyr::select(player, college, Height, Weight...12, Ath, Speed, Burst, Agility, Power, plot_name) |>
-    tidyr::pivot_longer(c(Ath, Speed, Burst, Agility, Power),names_to = "Metrics", values_to = "Value")
+    dplyr::select(player, college, display_height, display_weight, Ath, Speed, Burst, Agility, Power, plot_name) |>
+    tidyr::pivot_longer(c(Ath, Speed, Burst, Agility, Power),names_to = "Metrics", values_to = "Value") |>
+    dplyr::mutate(dplyr::across(where(is.double), round, 2),
+                  Metrics = forcats::fct_relevel(Metrics, "Power", "Agility", "Burst", "Speed", "Ath"))
+
+  bar_colors <- c("#6c0000", "#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f")
+  text_colors <- c("#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f", "#6c0000")
 
   p1 <- ggplot2::ggplot(
     input_df,
     ggplot2::aes(
       x = .data$Value,
       y = .data$Metrics,
-      fill = .data$Metrics
+      fill = .data$Metrics,
+      color = .data$Metrics
       )
     ) +
     ggplot2::geom_col(
-      alpha = .5
+      alpha = .75,
+      na.rm = TRUE
     ) +
-    ggplot2::scale_fill_viridis_d() +
+    ggplot2::geom_text(
+      ggplot2::aes(label = .data$Value,),
+      hjust = 0, nudge_x = -.07,
+      size = 5, fontface = "bold",
+      na.rm = TRUE
+    ) +
+    ggplot2::scale_fill_manual(values = bar_colors) +
+    ggplot2::scale_color_manual(values = text_colors) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       text = ggplot2::element_text(color = "#6c0000"),
-      plot.title = ggplot2::element_text(size = 18, face = "bold", margin = ggplot2::margin(10, 0, 20, 0)),
-      plot.subtitle = ggplot2::element_text(size = 14),
+      plot.title = ggplot2::element_text(size = 24, face = "bold", margin = ggplot2::margin(10, 0, 10, 0), hjust = 0.5),
+      plot.subtitle = ggplot2::element_text(size = 18, hjust = 0.5),
       axis.text = ggplot2::element_text(size = 14, color = "#6c0000"),
       axis.title = ggplot2::element_text(size = 14),
       plot.caption = ggplot2::element_text(size = 12)
     ) +
     ggplot2::labs(
-      x = "Value",
+      subtitle = glue::glue("{input_df$display_height}  |  {input_df$display_weight} lbs"),
+      x = "Percentile",
       y = "",
       caption = paste0(
         "Figure: @JerrickBackous | @campus2canton\n Data: @CFB_Data with @cfbfastR"
@@ -53,7 +70,7 @@ output_athleticism_plot <- function(input_df, input_player) {
     ggplot2::scale_x_continuous() +
     ggplot2::guides(color = "none", fill = "none") +
     ggplot2::ggtitle(
-      glue::glue("{input_player}")
+      glue::glue("{input_df$player}")
     )
 
   c2c <- magick::image_read(
@@ -96,34 +113,48 @@ download_athleticism_plot <- function(input_df, input_player) {
 
   input_df <- input_df |>
     dplyr::filter(plot_name %in% input_player) |>
-    dplyr::select(player, college, Height, Weight...12, Ath, Speed, Burst, Agility, Power, plot_name) |>
-    tidyr::pivot_longer(c(Ath, Speed, Burst, Agility, Power),names_to = "Metrics", values_to = "Value")
+    dplyr::select(player, college, display_height, display_weight, Ath, Speed, Burst, Agility, Power, plot_name) |>
+    tidyr::pivot_longer(c(Ath, Speed, Burst, Agility, Power),names_to = "Metrics", values_to = "Value") |>
+    dplyr::mutate(dplyr::across(where(is.double), round, 2),
+                  Metrics = forcats::fct_relevel(Metrics, "Power", "Agility", "Burst", "Speed", "Ath"))
 
+  bar_colors <- c("#6c0000", "#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f")
+  text_colors <- c("#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f", "#6c0000")
 
   p1 <- ggplot2::ggplot(
     input_df,
     ggplot2::aes(
       x = .data$Value,
       y = .data$Metrics,
-      fill = .data$Metrics
+      fill = .data$Metrics,
+      color = .data$Metrics
     )
   ) +
     ggplot2::geom_col(
-      alpha = .5
+      alpha = .75,
+      na.rm = TRUE
     ) +
-    ggplot2::scale_fill_viridis_d() +
+    ggplot2::geom_text(
+      ggplot2::aes(label = .data$Value,),
+      hjust = 0, nudge_x = -.07,
+      size = 8, fontface = "bold",
+      na.rm = TRUE
+    ) +
+    ggplot2::scale_fill_manual(values = bar_colors) +
+    ggplot2::scale_color_manual(values = text_colors) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
       text = ggplot2::element_text(color = "#6c0000"),
-      plot.title = ggplot2::element_text(size = 32, face = "bold", margin = ggplot2::margin(10, 0, 20, 0)),
-      plot.subtitle = ggplot2::element_text(size = 14),
+      plot.title = ggplot2::element_text(size = 32, face = "bold", margin = ggplot2::margin(10, 0, 10, 0), hjust = 0.5),
+      plot.subtitle = ggplot2::element_text(size = 24, hjust = 0.5),
       axis.text = ggplot2::element_text(size = 16, color = "#6c0000"),
       axis.title = ggplot2::element_text(size = 18),
       plot.caption = ggplot2::element_text(size = 14),
       plot.background = ggplot2::element_rect(fill = "white"),
     ) +
     ggplot2::labs(
-      x = "Values",
+      subtitle = glue::glue("{input_df$display_height}  |  {input_df$display_weight} lbs"),
+      x = "Percentile",
       y = "",
       caption = paste0(
         "Figure: @JerrickBackous | @campus2canton\n Data: @CFB_Data with @cfbfastR"
@@ -132,7 +163,7 @@ download_athleticism_plot <- function(input_df, input_player) {
     ggplot2::scale_x_continuous() +
     ggplot2::guides(color = "none", fill = "none") +
     ggplot2::ggtitle(
-      glue::glue("{input_player}")
+      glue::glue("{input_df$player}")
     )
 
   c2c <- magick::image_read(

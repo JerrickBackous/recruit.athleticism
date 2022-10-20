@@ -64,16 +64,13 @@ app_server <- function(input, output, session) {
     }
   )
 
-  # output$athleticism_table <- gt::render_gt({
-  #   input$submit
-  #   isolate({
-  #     req(input$player_plot)
-  #     ryoe_table <- athleticism_table(
-  #       athleticism_data(),
-  #       input$player_plot
-  #     )
-  #   })
-  # })
+  output$athleticism_table <- gt::render_gt({
+      req(input$player_plot)
+      athleticism_table <- athleticism_table(
+        athleticism_data(),
+        input$player_plot
+      )
+  })
 
   # Stop the app timing out
   autoInvalidate <- reactiveTimer(10000)

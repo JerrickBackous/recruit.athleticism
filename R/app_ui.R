@@ -53,7 +53,7 @@ app_ui <- function(request) {
           selectizeInput("player_plot",
                          label = "Select Player(s)",
                          choices = NULL,
-                         multiple = TRUE
+                         multiple = FALSE
           )
         ),
         column(
