@@ -1,2 +1,6 @@
-#' @import dbplyr
-NULL
+#' @import utils
+utils::globalVariables(
+  c(
+    "where"
+  )
+)

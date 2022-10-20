@@ -16,7 +16,7 @@
 athleticism_table <- function(input_df, input_player) {
 
   comp_player <- input_df |>
-    dplyr::filter(plot_name %in% input_player)
+    dplyr::filter(.data$plot_name %in% input_player)
 
   df <- input_df |>
     dplyr::rowwise() |>
@@ -45,7 +45,7 @@ athleticism_table <- function(input_df, input_player) {
     dplyr::select(.data$player, .data$college, .data$`Draft Year`, .data$Position,
                   Similarity = .data$Comp, .data$display_height, .data$display_weight,
                   .data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power) |>
-    dplyr::slice_max(Similarity, n = 9) |>
+    dplyr::slice_max(.data$Similarity, n = 9) |>
     dplyr::filter(.data$Similarity != max(.data$Similarity)) |>
     dplyr::mutate(dplyr::across(where(is.double), round, 2),
                   merge_size = paste0(.data$display_height, " | ", .data$display_weight)) |>
@@ -71,7 +71,7 @@ athleticism_table <- function(input_df, input_player) {
       )
     ) |>
     cfbplotR::gt_fmt_cfb_logo(columns = "college") |>
-    gtExtras::gt_merge_stack(col1= player, col2 = merge_size) |>
+    gtExtras::gt_merge_stack(col1= "player", col2 = "merge_size") |>
     # gt_merge_stack(col1= yptp, col2 = yptp_perc) |>
     # gt_merge_stack(col1= Backfield.Dominator.Rating, col2 = bdr_perc) |>
     # gt_merge_stack(col1= dominator_rtg, col2 = dr_perc) |>
