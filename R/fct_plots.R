@@ -21,13 +21,14 @@ output_athleticism_plot <- function(input_df, input_player) {
 
   input_df <- input_df |>
     dplyr::filter(.data$plot_name %in% input_player) |>
+    dplyr::mutate(Ath = .data$`ATH%`) |>
     dplyr::select(.data$player, .data$college, .data$display_height, .data$display_weight, .data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power, .data$plot_name) |>
     tidyr::pivot_longer(c(.data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power),names_to = "Metrics", values_to = "Value") |>
     dplyr::mutate(dplyr::across(where(is.double), round, 2),
                   Metrics = forcats::fct_relevel(.data$Metrics, "Power", "Agility", "Burst", "Speed", "Ath"))
 
-  bar_colors <- c("#6c0000", "#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f")
-  text_colors <- c("#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f", "#6c0000")
+  bar_colors <- c("#6c0000", "#fed67f","#6c0000", "#fed67f","#6c0000")
+  text_colors <- c("#fed67f","#6c0000", "#fed67f","#6c0000", "#fed67f")
 
   p1 <- ggplot2::ggplot(
     input_df,
