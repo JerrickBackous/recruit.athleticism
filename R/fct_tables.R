@@ -53,7 +53,7 @@ athleticism_table <- function(input_df, input_player) {
     dplyr::select(-.data$display_height, -.data$display_weight) |>
     gt::gt() |>
     gt::tab_header(
-      title = gt::md(glue::glue("**{comp_player$player} Comparables**"))
+      title = gt::md(glue::glue("**{comp_player$player} Athletic Comps**"))
       # subtitle = glue("RBs in season | {years_out_of_high_school} {year_wording} out of high school | Sorted by YPTP")
     ) |>
     gt::tab_spanner(
