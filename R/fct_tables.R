@@ -72,7 +72,7 @@ athleticism_table <- function(input_df, input_player) {
       )
     ) |>
     cfbplotR::gt_fmt_cfb_logo(columns = "college") |>
-    gtExtras::gt_merge_stack(col1= "player", col2 = "merge_size") |>
+    gtExtras::gt_merge_stack(col1= "player", col2 = "merge_size", palette = c("#6c0000", "dark grey")) |>
     # gt_merge_stack(col1= yptp, col2 = yptp_perc) |>
     # gt_merge_stack(col1= Backfield.Dominator.Rating, col2 = bdr_perc) |>
     # gt_merge_stack(col1= dominator_rtg, col2 = dr_perc) |>
