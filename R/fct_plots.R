@@ -74,7 +74,7 @@ output_athleticism_plot <- function(input_df, input_player) {
     )
 
   c2c <- magick::image_read(
-    system.file("app/www/c2c_logo.png", package = "collegeryoeapp")
+    system.file("app/www/c2c_logo.png", package = "recruit.athleticism")
   )
 
   p2 <- cowplot::ggdraw() +
@@ -168,7 +168,7 @@ download_athleticism_plot <- function(input_df, input_player) {
     )
 
   c2c <- magick::image_read(
-    system.file("app/www/c2c_logo.png", package = "collegeryoeapp")
+    system.file("app/www/c2c_logo.png", package = "recruit.athleticism")
   )
 
   p2 <- cowplot::ggdraw() +
