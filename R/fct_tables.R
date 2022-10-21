@@ -118,7 +118,7 @@ athleticism_table <- function(input_df, input_player) {
       source_note = gt::md("**Table:** @JerrickBackous / @campus2canton")
     ) |>
     gt::tab_source_note(
-      source_note = gt::md("**Data:** @CFB_Data with @cfbfastR")
+      source_note = gt::md("**Data:** @bigWRguy")
     ) |>
     # data_color(columns = "yptp",
     #            colors = pal

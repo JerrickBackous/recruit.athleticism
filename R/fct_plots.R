@@ -65,7 +65,7 @@ output_athleticism_plot <- function(input_df, input_player) {
       x = "Percentile",
       y = "",
       caption = paste0(
-        "Figure: @JerrickBackous | @campus2canton\n Data: @CFB_Data with @cfbfastR"
+        "Figure: @JerrickBackous | @campus2canton\n Data: @bigWRguy"
       )
     ) +
     ggplot2::scale_x_continuous() +
@@ -159,7 +159,7 @@ download_athleticism_plot <- function(input_df, input_player) {
       x = "Percentile",
       y = "",
       caption = paste0(
-        "Figure: @JerrickBackous | @campus2canton\n Data: @CFB_Data with @cfbfastR"
+        "Figure: @JerrickBackous | @campus2canton\n Data: @bigWRguy"
       )
     ) +
     ggplot2::scale_x_continuous() +
