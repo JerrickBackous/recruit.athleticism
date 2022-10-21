@@ -1,9 +1,9 @@
-#' Create RYOE Plot
+#' Create Athletic Percentile Plot
 #'
 #' @param input_df This is the data
 #' @param input_player Character string of players
 #'
-#' @return plot
+#' @return Athletic Percentile plot
 #'
 #' @import ggplot2
 #' @importFrom rlang .data
@@ -93,16 +93,18 @@ output_athleticism_plot <- function(input_df, input_player) {
   return(p2)
 }
 
-#' Create Downloadable Plot
+#' Create Athletic Percentile Downloadable Plot
 #'
 #' @param input_df This is the dataframe
 #' @param input_player Character string of players
 #'
-#' @return downloadable plot
+#' @return athletic percentile downloadable plot
 #'
 #' @import ggplot2
 #' @importFrom rlang .data
-#' @importFrom dplyr filter group_by top_n
+#' @importFrom dplyr filter select mutate across
+#' @importFrom tidyr pivot_longer
+#' @importFrom forcats fct_relevel
 #' @importFrom magick image_read
 #' @importFrom cowplot ggdraw draw_plot draw_image
 #' @importFrom ggrepel geom_label_repel

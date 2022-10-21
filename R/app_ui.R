@@ -63,7 +63,7 @@ app_ui <- function(request) {
           br(),
           downloadButton(
             outputId = "download_athleticism_plot",
-            label = "Download Plot"
+            label = "Save Plot"
           ),
           align = "right",
           br(),

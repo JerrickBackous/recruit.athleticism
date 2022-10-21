@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_plots.R
 \name{output_athleticism_plot}
 \alias{output_athleticism_plot}
-\title{Create RYOE Plot}
+\title{Create Athletic Percentile Plot}
 \usage{
 output_athleticism_plot(input_df, input_player)
 }
@@ -12,8 +12,8 @@ output_athleticism_plot(input_df, input_player)
 \item{input_player}{Character string of players}
 }
 \value{
-plot
+Athletic Percentile plot
 }
 \description{
-Create RYOE Plot
+Create Athletic Percentile Plot
 }

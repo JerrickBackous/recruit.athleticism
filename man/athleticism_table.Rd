@@ -2,18 +2,18 @@
 % Please edit documentation in R/fct_tables.R
 \name{athleticism_table}
 \alias{athleticism_table}
-\title{Create RYOE Table}
+\title{Create Athletic Comps Table}
 \usage{
 athleticism_table(input_df, input_player)
 }
 \arguments{
-\item{input_df}{This is a dataframe to be used (career or year)}
+\item{input_df}{This is a dataframe to be used}
 
 \item{input_player}{Character string of players}
 }
 \value{
-RYOE Table
+Athletic Comps Table
 }
 \description{
-Create RYOE Table
+Create Athletic Comps Table
 }

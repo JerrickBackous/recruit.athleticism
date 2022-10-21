@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_plots.R
 \name{download_athleticism_plot}
 \alias{download_athleticism_plot}
-\title{Create Downloadable Plot}
+\title{Create Athletic Percentile Downloadable Plot}
 \usage{
 download_athleticism_plot(input_df, input_player)
 }
@@ -12,8 +12,8 @@ download_athleticism_plot(input_df, input_player)
 \item{input_player}{Character string of players}
 }
 \value{
-downloadable plot
+athletic percentile downloadable plot
 }
 \description{
-Create Downloadable Plot
+Create Athletic Percentile Downloadable Plot
 }

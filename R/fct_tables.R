@@ -1,16 +1,16 @@
-#' Create RYOE Table
+#' Create Athletic Comps Table
 #'
-#' @param input_df This is a dataframe to be used (career or year)
+#' @param input_df This is a dataframe to be used
 #' @param input_player Character string of players
 #'
-#' @return RYOE Table
+#' @return Athletic Comps Table
 #'
 #' @importFrom rlang .data
 #' @importFrom dplyr tbl filter group_by slice_max ungroup mutate select arrange desc collect
 #' @importFrom gt gt tab_header tab_spanner tab_footnote tab_source_note
 #' @importFrom glue glue
 #' @importFrom cfbplotR gt_fmt_cfb_logo
-#' @importFrom gtExtras gt_hulk_col_numeric gt_theme_538
+#' @importFrom gtExtras gt_hulk_col_numeric gt_theme_538 gt_merge_stack
 #'
 #' @export
 athleticism_table <- function(input_df, input_player) {
@@ -54,7 +54,6 @@ athleticism_table <- function(input_df, input_player) {
     gt::gt() |>
     gt::tab_header(
       title = gt::md(glue::glue("**{comp_player$player} Athletic Comps**"))
-      # subtitle = glue("RBs in season | {years_out_of_high_school} {year_wording} out of high school | Sorted by YPTP")
     ) |>
     gt::tab_spanner(
       label = "Player Info",
@@ -73,67 +72,17 @@ athleticism_table <- function(input_df, input_player) {
     ) |>
     cfbplotR::gt_fmt_cfb_logo(columns = "college") |>
     gtExtras::gt_merge_stack(col1= "player", col2 = "merge_size", palette = c("#6c0000", "dark grey")) |>
-    # gt_merge_stack(col1= yptp, col2 = yptp_perc) |>
-    # gt_merge_stack(col1= Backfield.Dominator.Rating, col2 = bdr_perc) |>
-    # gt_merge_stack(col1= dominator_rtg, col2 = dr_perc) |>
-    # gt_merge_stack(col1= reception_ms, col2 = rec_share_perc) |>
-    # gt_merge_stack(col1= rush_yards_over_expected_per_attempt, col2 = ryoe_perc) |>
-    # cols_label(
-    #   player = "Name",
-    #   logo = "Team",
-    #   team = "",
-    #   year_played = "Year",
-    #   height_feet = "Ht",
-    #   weight = "Wt",
-    #   ppr_points = "PPR Pts",
-    #   reception_ms = "Rec Share (%)",
-    #   dominator_rtg = "DR (%)",
-    #   Backfield.Dominator.Rating = "BDR (%)",
-    #   rush_yards_over_expected_per_attempt = "RYOE/Att",
-    #   yptp = "YPTP"
-    # ) |>
-    # # fmt_symbol_first(column = w_dom_oe, symbol = "%", decimals = 1) |>
-    # gt::tab_footnote(
-    #   footnote = "Yards per Carry",
-    #   locations = gt::cells_column_labels(
-    #     columns = .data$YPC
-    #   )
-    # ) |>
-    # gt::tab_footnote(
-    #   footnote = "Expected Rushing Yards per Attempt",
-    #   locations = gt::cells_column_labels(
-    #     columns = .data$`xRY/Att`
-    #   )
-    # ) |>
-    # gt::tab_footnote(
-    #   footnote = "Rushing Yards Over Expected per Attempt",
-    #   locations = gt::cells_column_labels(
-    #     columns = .data$`RYOE/Att`
-    #   )
-    # ) |>
-    # tab_source_note(
-    #   source_note = md("***Note:*** Percentile, in grey below value, is based on historical P5 values of drafted players from 2014-2020")
-    # ) |>
     gt::tab_source_note(
       source_note = gt::md("**Table:** @JerrickBackous / @campus2canton")
     ) |>
     gt::tab_source_note(
       source_note = gt::md("**Data:** @bigWRguy")
     ) |>
-    # data_color(columns = "yptp",
-    #            colors = pal
-    # ) |>
-    # gt_hulk_col_numeric(ppr_points, trim = TRUE) |>
-    # gt_hulk_col_numeric(reception_ms, trim = TRUE) |>
-    # gt_hulk_col_numeric(dominator_rtg, trim = TRUE) |>
-    # gt_hulk_col_numeric(Backfield.Dominator.Rating, trim = TRUE) |>
-    # gt_hulk_col_numeric(rush_yards_over_expected_per_attempt, trim = TRUE) |>
     gtExtras::gt_hulk_col_numeric(.data$Similarity, trim = TRUE) |>
     gtExtras::gt_theme_538() |>
     gt::tab_options(heading.align = "center",
                     heading.title.font.size = 24,
-                    table.font.color = "#6c0000") #|>
-  # tab_options(footnotes.font.size = 12)
+                    table.font.color = "#6c0000")
 
   return(df)
 }
