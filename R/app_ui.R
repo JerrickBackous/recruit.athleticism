@@ -6,7 +6,7 @@
 #' @importFrom bslib bs_theme font_google
 #' @importFrom waiter use_waiter autoWaiter spin_hexdots transparent
 #' @importFrom sever useSever
-#' @importFrom shinyWidgets prettyRadioButtons
+#' @importFrom shinyWidgets prettyRadioButtons pickerInput
 #' @importFrom ggiraph girafeOutput
 #' @importFrom gt gt_output
 #' @noRd
@@ -47,6 +47,8 @@ app_ui <- function(request) {
       sever::useSever(),
       # p(style = "text-align: right;", paste0("Updated: ", update_date())),
       # First tab content
+      tabsetPanel(type = "tabs",
+                  tabPanel("Athletic Comps",
       fluidRow(
         column(
           width = 6,
@@ -79,6 +81,28 @@ app_ui <- function(request) {
           maximizable = TRUE,
           gt::gt_output(outputId = "athleticism_table")
         ))
+    ),
+    tabPanel("Leaderboard",
+             fluidRow(
+               column(
+                 offset = 3,
+                 width = 6,
+                 shinyWidgets::pickerInput("season_table",
+                             label = "Select Season(s)",
+                             choices = NULL,
+                             options = list(`actions-box` = TRUE),
+                             multiple = TRUE
+                 )
+               )
+             ),
+             fluidRow(
+               column(
+                 width = 12,
+                 maximizable = TRUE,
+                 reactable::reactableOutput(outputId = "leaderboard_table")
+               ))
+             )
+    )
     )
   )
 }

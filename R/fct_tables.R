@@ -137,3 +137,27 @@ athleticism_table <- function(input_df, input_player) {
 
   return(df)
 }
+
+
+#' Table of player metrics
+#'
+#' @param input_df data frame
+#' @param input_season selected seasons
+#'
+#' @return player metric table
+#' @importFrom rlang .data
+#' @importFrom dplyr filter select mutate across
+#' @export
+leaderboard_table <- function(input_df, input_season) {
+
+  df <- input_df |>
+    dplyr::filter(.data$`Draft Year` %in% input_season) |>
+    dplyr::mutate(Ath = .data$`ATH%`) |>
+    dplyr::select(Player = .data$player, College = .data$college, .data$Position,
+                  Class = .data$`Draft Year`, Height = .data$display_height,
+                  Weight = .data$display_weight, .data$Ath, .data$Speed,
+                  .data$Burst, .data$Agility, .data$Power) |>
+    dplyr::mutate(dplyr::across(where(is.double), round, 3))
+
+  return(df)
+}

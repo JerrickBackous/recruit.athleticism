@@ -7,8 +7,10 @@
 #' @importFrom glue glue
 #' @importFrom rlang .data
 #' @importFrom sever sever
+#' @importFrom shinyWidgets updatePickerInput
 #' @importFrom ggiraph renderGirafe girafe opts_selection opts_hover_inv
 #' @importFrom gt render_gt
+#' @importFrom reactable renderReactable reactable colDef
 #' @importFrom ggplot2 ggsave
 #' @noRd
 app_server <- function(input, output, session) {
@@ -28,6 +30,21 @@ app_server <- function(input, output, session) {
                          choices = athleticism_data()$plot_name,
                          selected = NULL,
                          server = TRUE
+    )
+  })
+
+  seasons <- reactive({
+    athleticism_data() |>
+      dplyr::select(.data$`Draft Year`) |>
+      dplyr::arrange(dplyr::desc(.data$`Draft Year`)) |>
+      dplyr::distinct(.data$`Draft Year`)
+  })
+
+  observe({
+    shinyWidgets::updatePickerInput(session,
+                         "season_table",
+                         choices = seasons(),
+                         selected = max(seasons(), na.rm = TRUE):(max(seasons(), na.rm = TRUE) - 30)
     )
   })
 
@@ -72,6 +89,23 @@ app_server <- function(input, output, session) {
         input$player_plot
       )
   })
+
+  output$leaderboard_table <- reactable::renderReactable(
+    reactable::reactable(
+      {
+        req(input$season_table)
+
+        leaderboard_table(
+          athleticism_data(),
+          input$season_table
+        )
+      },
+      filterable = TRUE,
+      defaultColDef = reactable::colDef(sortNALast = TRUE),
+      showPageSizeOptions = TRUE,
+      defaultPageSize = 50
+    )
+  )
 
   # Stop the app timing out
   autoInvalidate <- reactiveTimer(10000)

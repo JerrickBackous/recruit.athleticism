@@ -23,6 +23,7 @@ Imports:
     gt,
     gtExtras,
     magick,
+    reactable,
     rlang,
     scales,
     sever,
