@@ -18,7 +18,8 @@ app_server <- function(input, output, session) {
   athleticism_data <- reactive({
     c2cbucket <- aws.s3::get_bucket(bucket = "campus2canton", region = "")
 
-    aws.s3::s3readRDS(object = "app_data/recruit_athleticism.rds", bucket = c2cbucket, region = "")
+    # athleticism_data <-
+      aws.s3::s3readRDS(object = "app_data/recruit_athleticism.rds", bucket = c2cbucket, region = "")
   })
 
   observe({

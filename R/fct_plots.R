@@ -113,6 +113,7 @@ download_athleticism_plot <- function(input_df, input_player) {
 
   input_df <- input_df |>
     dplyr::filter(.data$plot_name %in% input_player) |>
+    dplyr::mutate(Ath = .data$`ATH%`) |>
     dplyr::select(.data$player, .data$college, .data$display_height, .data$display_weight, .data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power, .data$plot_name) |>
     tidyr::pivot_longer(c(.data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power),names_to = "Metrics", values_to = "Value") |>
     dplyr::mutate(dplyr::across(where(is.double), round, 2),

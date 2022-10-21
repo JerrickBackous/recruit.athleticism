@@ -41,7 +41,8 @@ athleticism_table <- function(input_df, input_player) {
                             ifelse(comp_player$player == .data$player,0.75, 0) +
                             ifelse(!is.na(comp_player$`ATH%`) & !is.na(.data$Ath), 0.3, 0))) |>
     dplyr::ungroup() |>
-    dplyr::mutate(Comp = (.data$Comp - min(.data$Comp)) / (max(.data$Comp) - min(.data$Comp))) |>
+    dplyr::mutate(Comp = (.data$Comp - min(.data$Comp)) / (max(.data$Comp) - min(.data$Comp)),
+                  Ath = .data$`ATH%`) |>
     dplyr::select(.data$player, .data$college, .data$`Draft Year`, .data$Position,
                   Similarity = .data$Comp, .data$display_height, .data$display_weight,
                   .data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power) |>

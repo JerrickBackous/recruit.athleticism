@@ -49,7 +49,7 @@ app_ui <- function(request) {
       # First tab content
       fluidRow(
         column(
-          width = 4,
+          width = 6,
           selectizeInput("player_plot",
                          label = "Select Player(s)",
                          choices = NULL,
