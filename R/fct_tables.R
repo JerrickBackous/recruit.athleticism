@@ -34,7 +34,7 @@ athleticism_table <- function(input_df, input_player) {
                                                                          min(ifelse(is.na(comp_player$Agility), 0, comp_player$Agility), ifelse(is.na(.data$Agility), 0, .data$Agility)))) +
                                 ifelse(is.na(comp_player$Power), 0, (max(ifelse(is.na(comp_player$Power), 0, comp_player$Power), ifelse(is.na(.data$Power), 0, .data$Power)) -
                                                                        min(ifelse(is.na(comp_player$Power), 0, comp_player$Power), ifelse(is.na(.data$Power), 0, .data$Power)))))) +
-                            ifelse(comp_player$Position == .data$Position, 0.25, -0.5) -
+                            ifelse(comp_player$Position == .data$Position, 0.25, -1.0) -
                             (0.6) -
                             ifelse(is.na(.data$Size), 1, 0) -
                             ifelse(is.na(.data$Speed), 1, 0) +
