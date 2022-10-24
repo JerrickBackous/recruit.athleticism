@@ -20,10 +20,10 @@ athleticism_table <- function(input_df, input_player) {
 
   df <- input_df |>
     dplyr::rowwise() |>
-    dplyr::mutate(Comp = ((1-((max(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height)) -
-                                 min(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height))) +
-                                (max(ifelse(is.na(comp_player$Weight), 0, comp_player$Weight), ifelse(is.na(.data$Weight), 0, .data$Weight)) -
-                                   min(ifelse(is.na(comp_player$Weight), 0, comp_player$Weight), ifelse(is.na(.data$Weight), 0, .data$Weight))) +
+    dplyr::mutate(Comp = ((1-(((max(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height)) -
+                                 min(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height)))*1.1) +
+                                ((max(ifelse(is.na(comp_player$Weight), 0, comp_player$Weight), ifelse(is.na(.data$Weight), 0, .data$Weight)) -
+                                   min(ifelse(is.na(comp_player$Weight), 0, comp_player$Weight), ifelse(is.na(.data$Weight), 0, .data$Weight)))*1.1) +
                                 (max(ifelse(is.na(comp_player$Speed), 0, comp_player$Speed), ifelse(is.na(.data$Speed), 0, .data$Speed)) -
                                    min(ifelse(is.na(comp_player$Speed), 0, comp_player$Speed), ifelse(is.na(.data$Speed), 0, .data$Speed))) +
                                 (max(ifelse(is.na(comp_player$Ath), 0, comp_player$Ath), ifelse(is.na(.data$Ath), 0, .data$Ath)) -
