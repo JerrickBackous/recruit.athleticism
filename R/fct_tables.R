@@ -21,7 +21,7 @@ athleticism_table <- function(input_df, input_player) {
   df <- input_df |>
     dplyr::rowwise() |>
     dplyr::mutate(Comp = ((1-(((max(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height)) -
-                                 min(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height)))*1.5) +
+                                 min(ifelse(is.na(comp_player$Height), 0, comp_player$Height), ifelse(is.na(.data$Height), 0, .data$Height)))*2) +
                                 ((max(ifelse(is.na(comp_player$Weight), 0, comp_player$Weight), ifelse(is.na(.data$Weight), 0, .data$Weight)) -
                                    min(ifelse(is.na(comp_player$Weight), 0, comp_player$Weight), ifelse(is.na(.data$Weight), 0, .data$Weight)))*1.5) +
                                 (max(ifelse(is.na(comp_player$Speed), 0, comp_player$Speed), ifelse(is.na(.data$Speed), 0, .data$Speed)) -
