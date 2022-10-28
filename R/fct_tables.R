@@ -71,6 +71,8 @@ athleticism_table <- function(input_df, input_player) {
       )
     ) |>
     cfbplotR::gt_fmt_cfb_logo(columns = "college") |>
+    gt::cols_label(Position = "Pos",
+                   college = "") |>
     gtExtras::gt_merge_stack(col1= "player", col2 = "merge_size", palette = c("#6c0000", "dark grey")) |>
     gt::tab_source_note(
       source_note = gt::md("**Table:** @JerrickBackous / @campus2canton")
