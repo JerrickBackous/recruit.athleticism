@@ -72,7 +72,8 @@ output_athleticism_plot <- function(input_df, input_player) {
     ggplot2::guides(color = "none", fill = "none") +
     ggplot2::ggtitle(
       glue::glue("{input_df$player}")
-    )
+    ) +
+    ggplot2::xlim(0,1)
 
   c2c <- magick::image_read(
     system.file("app/www/c2c_logo.png", package = "recruit.athleticism")
@@ -168,7 +169,8 @@ download_athleticism_plot <- function(input_df, input_player) {
     ggplot2::guides(color = "none", fill = "none") +
     ggplot2::ggtitle(
       glue::glue("{input_df$player}")
-    )
+    ) +
+    ggplot2::xlim(0,1)
 
   c2c <- magick::image_read(
     system.file("app/www/c2c_logo.png", package = "recruit.athleticism")

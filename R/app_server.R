@@ -56,7 +56,7 @@ app_server <- function(input, output, session) {
           input$player_plot
         ),
         width_svg = 9,
-        height_svg = 5,
+        height_svg = 7,
         options = list(
           ggiraph::opts_selection(type = "single", only_shiny = FALSE),
           ggiraph::opts_hover_inv(css = "opacity:0.5")
