@@ -47,7 +47,7 @@ athleticism_table <- function(input_df, input_player) {
                   Similarity = .data$Comp, .data$display_height, .data$display_weight,
                   .data$Ath, .data$Speed, .data$Burst, .data$Agility, .data$Power) |>
     dplyr::slice_max(.data$Similarity, n = 9) |>
-    dplyr::filter(.data$Similarity != max(.data$Similarity)) |>
+    dplyr::filter(.data$Similarity != max(.data$Similarity, na.rm = TRUE)) |>
     dplyr::mutate(dplyr::across(where(is.double), round, 2),
                   merge_size = paste0(.data$display_height, " | ", .data$display_weight)) |>
     dplyr::select(-.data$display_height, -.data$display_weight) |>
